@@ -33,6 +33,7 @@ import {
 } from 'lucide-react';
 import { BlinkingClock } from '@/components/BlinkingClock';
 import { NibblesMap } from '@/components/NibblesMap';
+import { SurfCheckEmbed } from '@/components/SurfCheckEmbed';
 import { NIBBLES_SPOTS, type NibblesSpot } from '@/data/spots';
 import {
   fetchLiveSpotWeather,
@@ -480,6 +481,8 @@ export function App() {
                 ))}
               </div>
             </div>
+
+            <SurfCheckEmbed theme={darkMode ? 'dark' : 'light'} />
           </div>
         )}
       </main>
