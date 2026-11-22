@@ -12,8 +12,10 @@ import { BlinkingClock } from '@/components/BlinkingClock';
 import { FishingMatrixTable } from '@/components/FishingMatrixTable';
 import { NibblesMap } from '@/components/NibblesMap';
 import { SevenDayCalendarCard } from '@/components/SevenDayCalendarCard';
+import { ShareQrDialog } from '@/components/ShareQrDialog';
 import { SolunarClockCard } from '@/components/SolunarClockCard';
 import { SpotCombobox } from '@/components/SpotCombobox';
+import { StartupSplash } from '@/components/StartupSplash';
 import { TideSolunarChart } from '@/components/TideSolunarChart';
 import { TrendGraphsSection } from '@/components/TrendGraphsSection';
 import { Button } from '@/components/ui/button';
@@ -34,10 +36,18 @@ function haversineKm(lat1: number, lon1: number, lat2: number, lon2: number): nu
   return 2 * R * Math.asin(Math.sqrt(a));
 }
 
+function resolveInitialSpot(): NzFishingSpot {
+  if (typeof window === 'undefined') return DEFAULT_SPOT;
+  const param = new URLSearchParams(window.location.search).get('spot');
+  if (!param) return DEFAULT_SPOT;
+  return NZ_SPOTS_125.find((s) => s.id === param) ?? DEFAULT_SPOT;
+}
+
 export function App() {
   const [darkMode, setDarkMode] = useState(true);
+  const [showSplash, setShowSplash] = useState(true);
   const [activeTab, setActiveTab] = useState('forecast');
-  const [selectedSpot, setSelectedSpot] = useState<NzFishingSpot>(DEFAULT_SPOT);
+  const [selectedSpot, setSelectedSpot] = useState<NzFishingSpot>(resolveInitialSpot);
   const [activeDayIndex, setActiveDayIndex] = useState(0);
   const [userCoords, setUserCoords] = useState<{ lat: number; lng: number } | null>(null);
   const [locating, setLocating] = useState(false);
@@ -98,15 +108,17 @@ export function App() {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-background pb-20 text-foreground md:pb-8">
+      {showSplash && <StartupSplash ready={!loading} onComplete={() => setShowSplash(false)} />}
+
+      <div className="min-h-screen bg-background pb-20 text-foreground transition-colors duration-300 md:pb-8">
         {/* Sticky Top Bar */}
         <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur-md">
           <div className="mx-auto flex max-w-[1480px] flex-wrap items-center justify-between gap-2 px-3 py-2.5 sm:flex-nowrap sm:px-6">
-            <div className="flex items-center gap-2.5 shrink-0">
+            <div className="flex shrink-0 items-center gap-2.5">
               <button
                 type="button"
                 onClick={() => setActiveTab('forecast')}
-                className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-sky-600 text-slate-950 shadow-sm transition hover:scale-105"
+                className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-sky-600 text-slate-950 shadow-sm transition-transform hover:scale-105"
                 title="Nibbles NZ"
               >
                 <Fish className="h-5 w-5" />
@@ -127,6 +139,7 @@ export function App() {
 
             <div className="order-2 flex shrink-0 items-center gap-1.5 sm:order-3 sm:gap-2">
               <BlinkingClock />
+              <ShareQrDialog selectedSpot={selectedSpot} />
               <Button
                 variant="outline"
                 size="icon"
@@ -163,7 +176,7 @@ export function App() {
               </TabsList>
 
               {bundle && (
-                <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-muted-foreground">
+                <div className="flex flex-wrap items-center gap-2 font-mono text-xs text-muted-foreground transition-opacity duration-300">
                   <span className="font-semibold text-foreground">{selectedSpot.name}</span>
                   <span>·</span>
                   <span>{bundle.currentTempC}°C</span>
@@ -188,7 +201,7 @@ export function App() {
             </div>
 
             {error && (
-              <div className="flex items-center justify-between rounded-xl border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
+              <div className="animate-enter flex items-center justify-between rounded-xl border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
                 <span className="flex items-center gap-2">
                   <AlertCircle className="h-4 w-4" />
                   Live feed unavailable ({error})
@@ -210,10 +223,15 @@ export function App() {
                   <Skeleton className="h-96 rounded-xl" />
                 </div>
               ) : bundle ? (
-                <>
-                  {/* Top 3 Visual Cards */}
+                <div
+                  key={bundle.spot.id}
+                  className={`space-y-4 transition-opacity duration-300 ${
+                    loading ? 'opacity-65' : 'opacity-100'
+                  }`}
+                >
+                  {/* Top 3 Visual Cards with Staggered Entrance */}
                   <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
-                    <div className="lg:col-span-4">
+                    <div className="animate-enter lg:col-span-4">
                       <SolunarClockCard
                         solunar={bundle.todaySolunar}
                         currentScore={bundle.currentScore}
@@ -221,10 +239,10 @@ export function App() {
                         fishCount={bundle.currentFishCount}
                       />
                     </div>
-                    <div className="lg:col-span-4">
+                    <div className="animate-enter-delay-1 lg:col-span-4">
                       <TideSolunarChart hourly24={bundle.hourly24} solunar={bundle.todaySolunar} />
                     </div>
-                    <div className="lg:col-span-4">
+                    <div className="animate-enter-delay-2 lg:col-span-4">
                       <SevenDayCalendarCard
                         days={bundle.days}
                         activeDayIndex={activeDayIndex}
@@ -233,22 +251,26 @@ export function App() {
                     </div>
                   </div>
 
-                  {/* Full-Width SurfCheck-Style 7-Day Fishing Matrix Table */}
-                  <FishingMatrixTable
-                    spot={bundle.spot}
-                    days={bundle.days}
-                    slots={bundle.matrixSlots}
-                    activeDayIndex={activeDayIndex}
-                    fetchedAt={bundle.fetchedAt}
-                  />
+                  {/* Full-Width Graphical 7-Day Fishing Matrix Table */}
+                  <div className="animate-enter-delay-2">
+                    <FishingMatrixTable
+                      spot={bundle.spot}
+                      days={bundle.days}
+                      slots={bundle.matrixSlots}
+                      activeDayIndex={activeDayIndex}
+                      fetchedAt={bundle.fetchedAt}
+                    />
+                  </div>
 
                   {/* Additional Live Wind, Pressure & Swell Graphs */}
-                  <TrendGraphsSection hourly24={bundle.hourly24} />
-                </>
+                  <div className="animate-enter-delay-3">
+                    <TrendGraphsSection hourly24={bundle.hourly24} />
+                  </div>
+                </div>
               ) : null}
             </TabsContent>
 
-            <TabsContent value="map">
+            <TabsContent value="map" className="animate-enter">
               <NibblesMap
                 selectedSpot={selectedSpot}
                 onSelectSpot={(spot) => {
@@ -269,7 +291,7 @@ export function App() {
           <button
             type="button"
             onClick={() => setActiveTab('forecast')}
-            className={`flex min-h-[56px] flex-col items-center justify-center gap-1 text-xs font-medium ${
+            className={`flex min-h-[56px] flex-col items-center justify-center gap-1 text-xs font-medium transition-colors ${
               activeTab === 'forecast' ? 'text-primary' : 'text-muted-foreground'
             }`}
           >
@@ -279,7 +301,7 @@ export function App() {
           <button
             type="button"
             onClick={() => setActiveTab('map')}
-            className={`flex min-h-[56px] flex-col items-center justify-center gap-1 text-xs font-medium ${
+            className={`flex min-h-[56px] flex-col items-center justify-center gap-1 text-xs font-medium transition-colors ${
               activeTab === 'map' ? 'text-primary' : 'text-muted-foreground'
             }`}
           >
