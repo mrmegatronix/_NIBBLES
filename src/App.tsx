@@ -171,7 +171,7 @@ export function App() {
                   <LayoutDashboard className="h-4 w-4" /> Forecast &amp; Matrix
                 </TabsTrigger>
                 <TabsTrigger value="map" className="gap-1.5 whitespace-nowrap">
-                  <Compass className="h-4 w-4" /> NZ Map (125 Spots)
+                  <Compass className="h-4 w-4" /> NZ Map ({NZ_SPOTS_125.length} Spots)
                 </TabsTrigger>
               </TabsList>
 
@@ -306,7 +306,7 @@ export function App() {
             }`}
           >
             <Compass className="h-5 w-5" />
-            <span>125 NZ Spots</span>
+            <span>{NZ_SPOTS_125.length} Spots</span>
           </button>
           <button
             type="button"

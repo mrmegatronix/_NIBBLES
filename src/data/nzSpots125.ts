@@ -162,19 +162,46 @@ const RAW_SPOTS: SpotTuple[] = [
   ['mangamaunu', 'Mangamaunu (Kaikōura)', 'S', 'Marlborough / Nelson', -42.2745, 173.7635, 300, 0.5],
   ['meatworks', 'Meatworks (Kaikōura)', 'S', 'Marlborough / Nelson', -42.3455, 173.7025, 305, 0.5],
 
-  // CANTERBURY (12)
+  // CANTERBURY (39 — North Canterbury, Christchurch, Lyttelton, Banks Peninsula, Mid/South Canterbury)
   ['gore-bay', 'Gore Bay', 'S', 'Canterbury', -42.8635, 173.3105, 300, 0.3],
-  ['motunau-beach', 'Motunau Beach', 'S', 'Canterbury', -43.0465, 173.0765, 315, 0.2],
+  ['motunau-beach', 'Motunau Beach & Island', 'S', 'Canterbury', -43.0465, 173.0765, 315, 0.2],
+  ['amberley-beach', 'Amberley Beach', 'S', 'Canterbury', -43.1685, 172.7965, 285, 0.15],
   ['leithfield-beach', 'Leithfield Beach', 'S', 'Canterbury', -43.2045, 172.7715, 280, 0.1],
   ['waikuku-beach', 'Waikuku Beach', 'S', 'Canterbury', -43.2855, 172.7195, 280, 0.1],
+  ['pegasus-beach', 'Pegasus Beach', 'S', 'Canterbury', -43.3145, 172.7145, 280, 0.1],
+  ['woodend-beach', 'Woodend Beach', 'S', 'Canterbury', -43.3385, 172.7125, 280, 0.1],
+  ['waimakariri-mouth', 'Waimakariri River Mouth (Kairaki)', 'S', 'Canterbury', -43.3905, 172.7135, 275, 0.05],
+  ['spencer-park', 'Spencer Park Beach', 'S', 'Canterbury', -43.4285, 172.7165, 275, 0.05],
+  ['waimairi-beach', 'Waimairi Beach', 'S', 'Canterbury', -43.4825, 172.7285, 270, 0.0],
   ['new-brighton', 'New Brighton Pier', 'S', 'Canterbury', -43.5063, 172.7347, 270, 0.0],
-  ['sumner-scarborough', 'Sumner & Scarborough', 'S', 'Canterbury', -43.5705, 172.7625, 225, 0.0],
-  ['taylors-mistake', "Taylor's Mistake", 'S', 'Canterbury', -43.5835, 172.7775, 235, 0.0],
+  ['south-shore-spit', 'South Shore Spit (Estuary)', 'S', 'Canterbury', -43.5412, 172.731, 270, 0.0],
+  ['shag-rock', 'Shag Rock / Rapanui (Sumner Bar)', 'S', 'Canterbury', -43.5658, 172.7542, 235, 0.0],
+  ['sumner-scarborough', 'Sumner & Scarborough Beach', 'S', 'Canterbury', -43.5705, 172.7625, 225, 0.0],
+  ['taylors-mistake', "Taylor's Mistake & Boulder Bay", 'S', 'Canterbury', -43.5835, 172.7775, 235, 0.0],
+  ['godley-head', 'Godley Head Ledges', 'S', 'Canterbury', -43.5936, 172.8021, 250, 0.0],
+  ['schnappers-cut', 'Lyttelton / Naval Point Marina', 'S', 'Canterbury', -43.6068, 172.7125, 240, 0.0],
+  ['corsair-bay', 'Corsair Bay Jetty & Ramp', 'S', 'Canterbury', -43.606, 172.715, 260, 0.0],
+  ['rapaki-bay', 'Rāpaki Bay (Mātaitai)', 'S', 'Canterbury', -43.61, 172.68, 300, 0.0],
+  ['governors-bay', 'Governors Bay Jetty', 'S', 'Canterbury', -43.6275, 172.6515, 280, 0.0],
+  ['charteris-bay', 'Charteris Bay / Orton Bradley', 'S', 'Canterbury', -43.6535, 172.7015, 210, 0.0],
+  ['diamond-harbour', 'Diamond Harbour Wharf', 'S', 'Canterbury', -43.623, 172.721, 200, 0.0],
+  ['purau-bay', 'Purau Bay', 'S', 'Canterbury', -43.6315, 172.7525, 200, 0.0],
+  ['port-levy', 'Port Levy / Koukourarata', 'S', 'Canterbury', -43.6435, 172.8285, 195, -0.05],
+  ['pigeon-bay', 'Pigeon Bay Wharf & Ramp', 'S', 'Canterbury', -43.6815, 172.8985, 195, -0.05],
+  ['okains-bay', 'Okains Bay', 'S', 'Canterbury', -43.6945, 173.0635, 240, -0.1],
+  ['le-bons-bay', 'Le Bons Bay', 'S', 'Canterbury', -43.7395, 173.0915, 255, -0.1],
   ['hickory-bay', 'Hickory Bay (Banks Peninsula)', 'S', 'Canterbury', -43.7765, 173.1125, 290, -0.1],
+  ['akaroa-wharf', 'Akaroa Wharf & Harbour', 'S', 'Canterbury', -43.804, 172.965, 220, -0.15],
+  ['wainui-akaroa', 'Wainui Wharf (Akaroa)', 'S', 'Canterbury', -43.8165, 172.9025, 270, -0.15],
   ['magnet-bay', 'Magnet Bay (Banks Peninsula)', 'S', 'Canterbury', -43.8465, 172.7425, 15, -0.1],
-  ['patiti-pt-timaru', 'Patiti Point (Timaru)', 'S', 'Canterbury', -44.4145, 171.2685, 280, -0.6],
+  ['birdlings-flat', 'Birdlings Flat / Kaitōrete Spit', 'S', 'Canterbury', -43.8255, 172.7015, 355, -0.15],
+  ['lake-ellesmere', 'Lake Ellesmere / Te Waihora', 'S', 'Canterbury', -43.798, 172.368, 320, -0.2],
+  ['rakaia-mouth', 'Rakaia River Mouth', 'S', 'Canterbury', -43.8965, 172.2035, 320, -0.35],
+  ['ashburton-mouth', 'Ashburton / Hakatere Mouth', 'S', 'Canterbury', -44.0485, 171.8125, 315, -0.45],
+  ['rangitata-mouth', 'Rangitata River Mouth', 'S', 'Canterbury', -44.1885, 171.5085, 310, -0.55],
+  ['patiti-pt-timaru', 'Patiti Point & Timaru Harbour', 'S', 'Canterbury', -44.4145, 171.2685, 280, -0.6],
+  ['waitaki-mouth', 'Waitaki River Mouth', 'S', 'Canterbury', -44.9415, 171.1385, 290, -0.8],
   ['oamaru', 'Oamaru Harbour & Cape Wanbrow', 'S', 'Canterbury', -45.1065, 170.9785, 280, -0.9],
-  ['schnappers-cut', 'Lyttelton / Naval Point', 'S', 'Canterbury', -43.6068, 172.7125, 240, 0.0],
 
   // OTAGO (7)
   ['karitane-beach', 'Karitāne Bar & Beach', 'S', 'Otago', -45.6395, 170.6625, 275, -1.1],
@@ -205,6 +232,32 @@ const RAW_SPOTS: SpotTuple[] = [
   ['te-hokiauau-big-bay', 'Te Hokiauau / Big Bay', 'S', 'West Coast', -44.2885, 168.1145, 115, 6.1],
 ];
 
+const SPOT_RULES: Record<string, string> = {
+  'new-brighton': 'Pier fishing closed Sun 10am–5pm (CCC Bylaw)',
+  'waimakariri-mouth': 'Fish & Game licence + Sea-Run Salmon Endorsement required for trout/salmon',
+  'rakaia-mouth': 'Fish & Game licence req. for salmon/trout · 4WD caution on loose shingle',
+  'rangitata-mouth': 'Prime Chinook Salmon & Kahawai water · Fish & Game licence required',
+  'waitaki-mouth': 'Fish & Game licence required for salmon/trout · Strong shingle surf',
+  'schnappers-cut': 'Whakaraupō Mātaitai Reserve rules apply · Multi-lane concrete ramp',
+  'corsair-bay': 'Whakaraupō Mātaitai rules apply · Sheltered concrete ramp & jetty',
+  'rapaki-bay': 'Rāpaki Mātaitai Reserve — strict customary & bag limits enforced',
+  'governors-bay': 'Whakaraupō Mātaitai rules apply · Shallow mud/sand harbour flat',
+  'akaroa-wharf': 'Watch Akaroa & Pohatu No-Take Marine Reserves · Rue Jolie ramp',
+  'birdlings-flat': 'Caution: steep shingle beach & heavy dumping shorebreak',
+  'lake-ellesmere': 'Check ECan water quality alerts · Shallow windy lake (flounder, eel, perch)',
+};
+
+const SPOT_SPECIES_OVERRIDE: Record<string, string[]> = {
+  'waimakariri-mouth': ['Chinook Salmon', 'Sea-run Brown Trout', 'Kahawai', 'Yellow-eyed Mullet'],
+  'rakaia-mouth': ['Chinook Salmon', 'Sea-run Brown Trout', 'Kahawai', 'Rig'],
+  'rangitata-mouth': ['Chinook Salmon', 'Sea-run Brown Trout', 'Kahawai', 'Rig'],
+  'ashburton-mouth': ['Chinook Salmon', 'Brown Trout', 'Kahawai', 'Red Cod'],
+  'waitaki-mouth': ['Chinook Salmon', 'Sea-run Brown Trout', 'Kahawai', 'Red Cod'],
+  'lake-ellesmere': ['Yellow-belly Flounder', 'Shortfin Eel (Tuna)', 'Perch', 'Brown Trout'],
+  'akaroa-wharf': ['Blue Cod', 'Tarakihi', 'Blue Moki', 'Yellowtail Kingfish', 'Sea Perch'],
+  'godley-head': ['Yellowtail Kingfish', 'Blue Cod', 'Blue Moki', 'Tarakihi', 'Kahawai'],
+};
+
 export const NZ_SPOTS_125: NzFishingSpot[] = RAW_SPOTS.map(
   ([id, name, islandCode, region, lat, lng, offshoreDeg, tideOffsetHrs]) => ({
     id,
@@ -215,11 +268,9 @@ export const NZ_SPOTS_125: NzFishingSpot[] = RAW_SPOTS.map(
     lng,
     offshoreDeg,
     tideOffsetHrs,
-    targetSpecies: REGION_SPECIES[region] ?? ['Kahawai', 'Snapper', 'Blue Cod', 'Gurnard'],
-    accessNote:
-      id === 'new-brighton'
-        ? 'Pier fishing closed Sun 10am–5pm (CCC Bylaw)'
-        : `${region} coastal access · Check local MPI rules & bar safety`,
+    targetSpecies:
+      SPOT_SPECIES_OVERRIDE[id] ?? REGION_SPECIES[region] ?? ['Kahawai', 'Snapper', 'Blue Cod', 'Gurnard'],
+    accessNote: SPOT_RULES[id] ?? `${region} coastal access · Check local MPI rules & bar safety`,
   })
 );
 

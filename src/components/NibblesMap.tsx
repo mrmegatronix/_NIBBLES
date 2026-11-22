@@ -26,7 +26,7 @@ export function NibblesMap({
 
   const [mapStyle, setMapStyle] = useState<MapStyle>('google-hybrid');
   const [seamarks, setSeamarks] = useState(true);
-  const [islandFilter, setIslandFilter] = useState<'all' | 'North Island' | 'South Island'>('all');
+  const [regionFilter, setRegionFilter] = useState<'canterbury' | 'all' | 'North Island' | 'South Island'>('canterbury');
 
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
@@ -82,7 +82,11 @@ export function NibblesMap({
     group.clearLayers();
 
     const visibleSpots =
-      islandFilter === 'all' ? NZ_SPOTS_125 : NZ_SPOTS_125.filter((s) => s.island === islandFilter);
+      regionFilter === 'canterbury'
+        ? NZ_SPOTS_125.filter((s) => s.region === 'Canterbury')
+        : regionFilter === 'all'
+          ? NZ_SPOTS_125
+          : NZ_SPOTS_125.filter((s) => s.island === regionFilter);
 
     visibleSpots.forEach((spot) => {
       const active = spot.id === selectedSpot.id;
@@ -109,7 +113,9 @@ export function NibblesMap({
         .bindPopup('Your GPS Location')
         .addTo(group);
     }
-  }, [selectedSpot, userCoords, islandFilter, onSelectSpot]);
+  }, [selectedSpot, userCoords, regionFilter, onSelectSpot]);
+
+  const canterburyCount = NZ_SPOTS_125.filter((s) => s.region === 'Canterbury').length;
 
   return (
     <Card className="border-border/80 bg-card/90">
@@ -117,17 +123,28 @@ export function NibblesMap({
         <div className="flex flex-wrap items-center justify-between gap-2">
           <CardTitle className="font-display flex items-center gap-2 text-lg font-bold">
             <Compass className="h-5 w-5 text-primary" />
-            Google Maps · All {NZ_SPOTS_125.length} NZ Fishing Spots
+            Google Maps · {NZ_SPOTS_125.length} NZ Fishing Spots
           </CardTitle>
           <div className="flex flex-wrap items-center gap-1.5">
-            {(['all', 'North Island', 'South Island'] as const).map((isl) => (
+            {(['canterbury', 'all', 'South Island', 'North Island'] as const).map((flt) => (
               <Button
-                key={isl}
+                key={flt}
                 size="xs"
-                variant={islandFilter === isl ? 'default' : 'outline'}
-                onClick={() => setIslandFilter(isl)}
+                variant={regionFilter === flt ? 'default' : 'outline'}
+                onClick={() => {
+                  setRegionFilter(flt);
+                  if (flt === 'canterbury') {
+                    mapRef.current?.setView([-43.58, 172.73], 10);
+                  } else if (flt === 'all') {
+                    mapRef.current?.setView([-41.2, 173.2], 6);
+                  }
+                }}
               >
-                {isl === 'all' ? 'All NZ (125)' : isl}
+                {flt === 'canterbury'
+                  ? `Canterbury (${canterburyCount})`
+                  : flt === 'all'
+                    ? `All NZ (${NZ_SPOTS_125.length})`
+                    : flt}
               </Button>
             ))}
           </div>

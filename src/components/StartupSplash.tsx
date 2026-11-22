@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CheckCircle2, Compass, Fish, Moon, Waves } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { NZ_SPOTS_125 } from '@/data/nzSpots125';
 
 interface StartupSplashProps {
   ready: boolean;
@@ -49,14 +50,14 @@ export function StartupSplash({ ready, onComplete }: StartupSplashProps) {
         Nibbles <span className="text-cyan-400">NZ</span>
       </h1>
       <p className="mt-1 font-mono text-xs tracking-wider text-slate-400 uppercase">
-        125 New Zealand Fishing Spots · Live Solunar &amp; Marine Intel
+        {NZ_SPOTS_125.length} New Zealand Fishing Spots · Live Solunar &amp; Marine Intel
       </p>
 
       {/* Boot Diagnostic Steps */}
       <div className="mt-6 w-full max-w-xs space-y-2 rounded-xl border border-cyan-500/20 bg-[#07172b]/90 p-3.5 font-mono text-xs">
         <div className="flex items-center justify-between">
           <span className="flex items-center gap-2 text-slate-300">
-            <Compass className="h-3.5 w-3.5 text-cyan-400" /> 125 NZ Coastal Spots
+            <Compass className="h-3.5 w-3.5 text-cyan-400" /> {NZ_SPOTS_125.length} NZ &amp; 39 Canterbury Spots
           </span>
           <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
         </div>

@@ -29,7 +29,12 @@ export function SpotCombobox({
 
   const groupedByRegion = useMemo(() => {
     const map = new Map<string, NzFishingSpot[]>();
-    for (const s of NZ_SPOTS_125) {
+    // Put Canterbury first for instant local access
+    const ordered = [
+      ...NZ_SPOTS_125.filter((s) => s.region === 'Canterbury'),
+      ...NZ_SPOTS_125.filter((s) => s.region !== 'Canterbury'),
+    ];
+    for (const s of ordered) {
       const key = `${s.island} — ${s.region}`;
       const list = map.get(key) ?? [];
       list.push(s);
@@ -64,7 +69,7 @@ export function SpotCombobox({
         />
         <PopoverContent className="w-[330px] p-0 sm:w-[400px]" align="center">
           <Command>
-            <CommandInput placeholder="Search 125 NZ spots or regions..." />
+            <CommandInput placeholder={`Search ${NZ_SPOTS_125.length} NZ spots (Canterbury first)...`} />
             <CommandList className="max-h-80">
               <CommandEmpty>No fishing spot found.</CommandEmpty>
               {groupedByRegion.map(([groupName, spots]) => (
